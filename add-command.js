@@ -13,7 +13,7 @@ const commandContent = `
  * @argument {Array<any>} args
 */
 
-module.exports = function ping(message, args) {
+module.exports = function ${name}(message, args) {
   const channel = message.channel;
 
   channel.send("${name}");
