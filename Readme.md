@@ -18,3 +18,6 @@ cd wero-bot
 npm install
 npm run dev #This will run the bot in watch mode
 ```
+
+## Bot invite link
+[invite](https://discord.com/api/oauth2/authorize?client_id=811410551375659049&permissions=8&scope=bot)

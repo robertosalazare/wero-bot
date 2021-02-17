@@ -5,9 +5,20 @@
 
 module.exports = async function audio(message, args) {
   if (message.member.voice.channel) {
+    const [audio] = args;
+
+    if(!audio) {
+      return message.channel.send('Manda el nombre de un audio puta.');
+    }
+
 		const connection = await message.member.voice.channel.join();
-    console.log(__dirname);
+    const dispatcher = connection.play(`${__dirname}/../audio/${audio}.mp3`);
+
+    dispatcher.on('error', (err) => {
+      console.log(err);
+      message.channel.send('Error reproduciendo el audio');
+    });
 	} else {
     message.channel.send("No estas en un chat de voz puta.");
   }
-}; 
+};
