@@ -2,6 +2,7 @@
  * @argument {import('discord.js').Message} message
  * @argument {Array<any>} args
 */
+const { allAudios } = require("../utils");
 
 module.exports = async function audio(message, args) {
   if (message.member.voice.channel) {
@@ -10,6 +11,9 @@ module.exports = async function audio(message, args) {
     if(!audio) {
       return message.channel.send('Manda el nombre de un audio puta.');
     }
+
+    const availableAudios = allAudios();
+    if(!availableAudios.includes(audio)) { return message.channel.send('No ta ese audio puta.'); }
 
 		const connection = await message.member.voice.channel.join();
     const dispatcher = connection.play(`${__dirname}/../audio/${audio}.mp3`);

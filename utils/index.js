@@ -15,4 +15,20 @@ function readDirSyncRecursive(dir, results = []) {
   }
 }
 
-module.exports = { readDirSyncRecursive };
+function allAudios() {
+  const files = [];
+  readDirSyncRecursive(__dirname + "/../audio", files);
+  
+  const audios = [];
+  files.forEach((file) => {
+    const fileName = file.split(/\/|\\/).pop();
+
+    const name = fileName.split(".").shift();
+    
+    audios.push(name);
+  });
+
+  return audios;
+}
+
+module.exports = { readDirSyncRecursive, allAudios };
