@@ -6,7 +6,6 @@ readDirSyncRecursive(__dirname, files);
 
 files.forEach((file) => {
   const fileName = file.split(/\/|\\/).pop();
-  console.log(fileName);
 
   if (fileName !== "index.js") {
     const name = fileName.split(".").shift();
