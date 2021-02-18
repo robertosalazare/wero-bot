@@ -5,14 +5,14 @@ const app = express();
  
 app.post('/', function (_, res) {
   exec("git pull", (error, stdout, stderr) => {
-    if(error || stderr) {
-      console.log(error || stderr);
+    if(error) {
+      console.log(error);
       
       return res.status(500).send("Error pulling the repo");
     }
 
-    if(stdout) {
-      console.log(stdout);
+    if(stdout || stderr) {
+      console.log(stdout || stderr);
     }
 
     return res.status(200).send('Pulled successfully');
