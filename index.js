@@ -16,7 +16,7 @@ client.on("message", function (message) {
 
   if(handler) {
     handler(message, args);
-    // message.react('simonputa:811749601165574195');
+    message.react('811749601165574195'); // simonputa react
   } else {
     message.channel.send('Puta madre no le sabes.');
   }
