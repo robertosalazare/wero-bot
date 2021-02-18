@@ -1,9 +1,9 @@
+const { allAudios } = require("../utils");
+
 /**
  * @argument {import('discord.js').Message} message
  * @argument {Array<any>} args
 */
-const { allAudios } = require("../utils");
-
 module.exports = async function audio(message, args) {
   if (message.member.voice.channel) {
     const [audio] = args;
