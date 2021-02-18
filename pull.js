@@ -3,7 +3,7 @@ const config = require("./config.json");
 const { exec } = require("child_process");
 const app = express();
  
-app.post('/', function (_, res) {
+app.post('/', async function (_, res) {
   exec("git pull", (error, stdout, stderr) => {
     if(error) {
       console.log(error);
