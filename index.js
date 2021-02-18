@@ -22,4 +22,4 @@ client.on("message", function (message) {
   }
 });
 
-client.login(config.BOT_TOKEN).then(() => console.log("⚡️Wero bot is up⚡️"));
+client.login(config.BOT_TOKEN).then(() => console.log("Wero bot is up"));
