@@ -4,14 +4,20 @@ const client = new Discord.Client();
 const prefix = config.PREFIX;
 const commands = require("./commands");
 
+const truthOptions = ['truuuuuu', 'not tru', 'false', 'not false'];
+const truthRegex = /^((not\s+)?(tru+e*|false))$/i;
+
+function sampleArr(arr) {
+  const idx = Math.floor(Math.random() * arr.length);
+  return arr[idx];
+}
+
 client.on("message", function (message) {
   if (message.author.bot) return;
   if (message.content.toLowerCase() == "same")
     message.channel.send(message.content);
-  if (message.content.toLocaleLowerCase() == "tru")
-    Math.random() < 0.5
-      ? message.channel.send("truuuuu")
-      : message.channel.send("not tru");
+  if (truthRegex.test(message.content))
+    message.channel.send(sampleArr(truthOptions))
   if (!message.content.startsWith(prefix)) return;
 
   const commandBody = message.content.slice(prefix.length);
