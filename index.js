@@ -6,7 +6,12 @@ const commands = require("./commands");
 
 client.on("message", function (message) {
   if (message.author.bot) return;
-  if (message.content.toLowerCase() == 'same') message.channel.send(message.content);
+  if (message.content.toLowerCase() == "same")
+    message.channel.send(message.content);
+  if (message.content.toLocaleLowerCase() == "tru")
+    Math.random() < 0.5
+      ? message.channel.send("truuuuu")
+      : message.channel.send("not tru");
   if (!message.content.startsWith(prefix)) return;
 
   const commandBody = message.content.slice(prefix.length);
@@ -15,13 +20,14 @@ client.on("message", function (message) {
 
   const handler = commands[command];
 
-  if(handler) {
+  if (handler) {
     handler(message, args);
     message.react(config.REACTION); // reaction saved in config
   } else {
-    message.channel.send('Puta madre no le sabes.');
+    message.channel.send("Puta madre no le sabes.");
   }
 });
 
-client.login(config.BOT_TOKEN)
+client
+  .login(config.BOT_TOKEN)
   .then(() => console.log("⚡️ Wero bot is up ⚡️"));
