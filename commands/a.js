@@ -24,7 +24,7 @@ module.exports = async function audio(message, args) {
     const connection = await message.member.voice.channel.join();
     const dispatcher = connection.play(`${__dirname}/../audio/${audio}.mp3`);
 
-    timer = setTimeout(() => connection.disconnect(), 10000);
+    timer = setTimeout(() => connection.disconnect(), 60000);
 
     dispatcher.on("error", (err) => {
       console.log(err);
