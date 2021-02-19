@@ -6,6 +6,7 @@ const commands = require("./commands");
 
 client.on("message", function (message) {
   if (message.author.bot) return;
+  if (message.content.toLowerCase() == 'same') message.channel.send(message.content);
   if (!message.content.startsWith(prefix)) return;
 
   const commandBody = message.content.slice(prefix.length);
