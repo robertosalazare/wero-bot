@@ -14,7 +14,7 @@ module.exports = async function audio(message, args) {
       return message.channel.send("Manda el nombre de un audio puta.");
     }
 
-    timer = null;
+    clearTimeout(timer);
 
     const availableAudios = allAudios();
     if (!availableAudios.includes(audio)) {
