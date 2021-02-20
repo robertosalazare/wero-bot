@@ -3,14 +3,11 @@ const config = require("./config.json");
 const client = new Discord.Client();
 const prefix = config.PREFIX;
 const commands = require("./commands");
+const { sampleArr }  = require("./utils");
 
 const truthOptions = ['truuuuuu', 'not tru', 'false', 'not false'];
 const truthRegex = /^((not\s+)?(tru+e*|false))$/i;
 
-function sampleArr(arr) {
-  const idx = Math.floor(Math.random() * arr.length);
-  return arr[idx];
-}
 
 client.on("message", function (message) {
   if (message.author.bot) return;

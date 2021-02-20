@@ -31,4 +31,9 @@ function allAudios() {
   return audios;
 }
 
-module.exports = { readDirSyncRecursive, allAudios };
+function sampleArr(arr) {
+  const idx = Math.floor(Math.random() * arr.length);
+  return arr[idx];
+}
+
+module.exports = { readDirSyncRecursive, allAudios, sampleArr };
