@@ -1,5 +1,6 @@
 const { allAudios } = require("../utils");
 
+let stfu = null;
 let timer = null;
 
 /**
@@ -24,7 +25,8 @@ module.exports = async function audio(message, args) {
     const connection = await message.member.voice.channel.join();
     const dispatcher = connection.play(`${__dirname}/../audio/${audio}.mp3`);
 
-    timer = setTimeout(() => connection.disconnect(), 60000);
+    stfu = () => connection.disconnect(),
+    timer = setTimeout(stfu, 60000);
 
     dispatcher.on("error", (err) => {
       console.log(err);
@@ -32,5 +34,13 @@ module.exports = async function audio(message, args) {
     });
   } else {
     message.channel.send("No estas en un chat de voz puta.");
+  }
+};
+
+module.exports.disconnect = function disconnect() {
+  if (stfu) {
+    stfu();
+    clearTimeout(timer);
+    stfu = null;
   }
 };

@@ -17,7 +17,7 @@ client.on("message", function (message) {
   if (message.content.toLowerCase() == "same")
     message.channel.send(message.content);
   if (truthRegex.test(message.content))
-    message.channel.send(sampleArr(truthOptions))
+    message.channel.send(sampleArr(truthOptions));
   if (!message.content.startsWith(prefix)) return;
 
   const commandBody = message.content.slice(prefix.length);
