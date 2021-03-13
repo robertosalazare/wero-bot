@@ -2,5 +2,9 @@
 	"BOT_TOKEN": "",
 	"PREFIX": "?",
 	"PULL_PORT": 25570,
-	"REACTION": "811749601165574195"
+	"REACTION": "811749601165574195",
+	"db": {
+		"dialect": "sqlite",
+  	"storage": "db/database.sqlite"
+	}
 }

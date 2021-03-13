@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./index.js",
     "dev": "nodemon ./index.js",
-    "add-command": "node add-command.js -n "
+    "add-command": "node add-command.js -n ",
+    "postinstall": "npm run migrations",
+    "migrations": "sequelize-cli db:migrate"
   },
   "author": "Roberto Salazar",
   "license": "ISC",
@@ -14,10 +16,13 @@
     "@discordjs/opus": "^0.4.0",
     "axios": "^0.21.1",
     "discord.js": "^12.5.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0",
     "yargs": "^16.2.0"
   }
 }
