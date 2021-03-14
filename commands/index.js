@@ -26,9 +26,9 @@ const reaction = config.REACTION;
 const evaluateCommand = (message) => {
   if (!message.content.startsWith(prefix)) return;
 
+  // getting all the command information
   const commandString = message.content.slice(prefix.length);
-  const parsedCommand = yargs.parse(commandString);
-
+  const parsedCommand = yargs.parse(commandString, () => {});
   const args = parsedCommand._;
   const command = args.shift().toLocaleLowerCase();
   const variables = {
@@ -36,13 +36,23 @@ const evaluateCommand = (message) => {
   };
   delete variables._;
   delete variables['$0'];
-  const { handler } = commands[command];
 
-  if (handler) {
-    handler(message, args, variables);
-    message.react(reaction);
+  // getting the handler, help and validate functions of the command
+  const { handler, help, validate } = commands[command];
+
+  if(variables.help) {
+    help(message);
   } else {
-    message.channel.send("Puta madre no le sabes.");
+    const haveError = validate(message, args, variables);
+
+    if(!haveError) {
+      if (handler) {
+        handler(message, args, variables);
+        message.react(reaction);
+      } else {
+        message.channel.send("Comando incorrecto.");
+      }
+    }
   }
 }
 

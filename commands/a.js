@@ -9,18 +9,11 @@ let timer = null;
  */
 async function audio(message, args, variables) {
   if (message.member.voice.channel) {
-    const [audio] = args;
+    let [audio] = args;
+    
+    if(variables.name) { audio = variables.name; }
 
-    if (!audio) {
-      return message.channel.send("Manda el nombre de un audio puta.");
-    }
-  
     clearTimeout(timer);
-
-    const availableAudios = allAudios();
-    if (!availableAudios.includes(audio.toString())) {
-      return message.channel.send("No ta ese audio puta.");
-    }
 
     const connection = await message.member.voice.channel.join();
     const dispatcher = connection.play(`${__dirname}/../audio/${audio}.mp3`);
@@ -33,7 +26,7 @@ async function audio(message, args, variables) {
       message.channel.send("Error reproduciendo el audio");
     });
   } else {
-    message.channel.send("No estas en un chat de voz puta.");
+    message.channel.send("No estas en un chat de voz.");
   }
 }
 
@@ -42,6 +35,26 @@ async function audio(message, args, variables) {
  * @argument {Array<any>} args
  */
 function validate(message, args, variables) {
+  let [audio] = args;
+
+  if(variables.name) { audio = variables.name; }
+
+  const channel = message.channel;
+  const availableAudios = allAudios();
+
+  if(!audio) {
+    channel.send(`Porfavor manda el nombre de un audio`);
+
+    return true;
+  } else if(!availableAudios.includes(audio.toString())) {
+    message.channel.send(`
+Audio incorrecto, los audios disponibles son:
+${availableAudios.join(', ')}
+      `);
+
+    return true;
+  }
+
   return false;
 }
 
@@ -50,7 +63,16 @@ function validate(message, args, variables) {
  */
 function help(message) {
   const channel = message.channel;
-  channel.send("Help message for a");
+  const audios = allAudios();
+
+  channel.send(`
+El comando 'a' reproduce un audio el chat que te encuentres actualmente. Los audios disponibles actualmente son:
+${audios.join(', ')}
+
+ejemplos de como usar el comando:
+?a <NOMBRE_DEL_AUDIO>
+?a --name <NOMBRE_DEL_AUDIO>
+  `);
 }
 
 function disconnect() {
