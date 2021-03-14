@@ -1,5 +1,6 @@
 const { readDirSyncRecursive } = require("../utils");
 const config = require("../config.json");
+const yargs = require('yargs');
 const commands = {};
 
 const files = [];
@@ -24,13 +25,21 @@ const reaction = config.REACTION;
 
 const evaluateCommand = (message) => {
   if (!message.content.startsWith(prefix)) return;
-  const commandBody = message.content.slice(prefix.length);
-  const args = commandBody.split(" ");
-  const command = args.shift().toLowerCase();
-  const handler = commands[command];
+
+  const commandString = message.content.slice(prefix.length);
+  const parsedCommand = yargs.parse(commandString);
+
+  const args = parsedCommand._;
+  const command = args.shift().toLocaleLowerCase();
+  const variables = {
+    ...parsedCommand,
+  };
+  delete variables._;
+  delete variables['$0'];
+  const { handler } = commands[command];
 
   if (handler) {
-    handler(message, args);
+    handler(message, args, variables);
     message.react(reaction);
   } else {
     message.channel.send("Puta madre no le sabes.");

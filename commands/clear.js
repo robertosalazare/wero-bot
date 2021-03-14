@@ -5,7 +5,23 @@ const client = require('../client');
  * @argument {Array<any>} args
 */
 
-module.exports = async function clear(message, args) {
+/**
+ * @argument {import('discord.js').Message} message
+ * @argument {Array<any>} args
+ */
+function validate(message, args, variables) {
+  return false;
+}
+
+/**
+ * @argument {import('discord.js').Message} message
+ */
+function help(message) {
+  const channel = message.channel;
+  channel.send("Help message for clear");
+}
+
+async function clear(message, args) {
   const channel = message.channel;
 
   const messages = await channel.messages.fetch({
@@ -28,4 +44,10 @@ module.exports = async function clear(message, args) {
   } catch (error) {
     deletingMessage.edit(`Error borrando los mensajes`);
   }
-}; 
+};
+
+module.exports = {
+  handler: clear,
+  validate,
+  help,
+};

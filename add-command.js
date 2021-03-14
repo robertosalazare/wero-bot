@@ -12,12 +12,33 @@ const commandContent = `
  * @argument {import('discord.js').Message} message
  * @argument {Array<any>} args
 */
-
-module.exports = function ${name}(message, args) {
+function ${name}(message, args) {
   const channel = message.channel;
 
   channel.send("${name}");
-}; 
+}
+
+/**
+ * @argument {import('discord.js').Message} message
+ * @argument {Array<any>} args
+ */
+function validate(message, args, variables) {
+  return false;
+}
+
+/**
+ * @argument {import('discord.js').Message} message
+ */
+function help(message) {
+  const channel = message.channel;
+  channel.send("Help message for ${name}");
+}
+
+module.exports = {
+  handler: ${name},
+  validate,
+  help,
+};
 `;
 
 fs.writeFile(`${__dirname}/commands/${name}.js`, commandContent, 'utf8', function(err) {
